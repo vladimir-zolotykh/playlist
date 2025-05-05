@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # PYTHON_ARGCOMPLETE_OK
+from typing import Any
 from numbers import Number
 import pyparsing as pp
+
+PLS_PAIRS = dict[str, Any]
 
 
 def bnf() -> pp.core.ParserElement:
@@ -16,11 +19,15 @@ def bnf() -> pp.core.ParserElement:
     return line
 
 
-if __name__ == "__main__":
-    pairs: dict[str, str | Number] = {}
-    with open("blondie_pp.pls", "r") as f:
+def main(filename="blondie_pp.pls") -> PLS_PAIRS:
+    pairs: PLS_PAIRS = {}
+    with open(filename, "r") as f:
         for line in f:
             res = bnf().parse_string(line[:-1])
             if "key" in res:
                 pairs[res["key"]] = res["value"]
-    print(pairs)
+    return pairs
+
+
+if __name__ == "__main__":
+    print(main())
