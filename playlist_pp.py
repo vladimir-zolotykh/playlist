@@ -16,8 +16,8 @@ PLS_PAIRS = dict[str, Any]
 
 def bnf() -> pp.core.ParserElement:
     # fmt: off
-    ini_header = pp.Combine(
-        pp.Literal("[") + pp.Regex(r"[^]]+") + pp.Literal("]"))
+    ini_header = (pp.Suppress("[") + pp.CharsNotIn("]")("header") +
+                  pp.Suppress("]"))
     # fmt: on
     key = pp.Word(pp.alphas + pp.alphanums + "_").set_results_name("key")
     value = pp.restOfLine.set_results_name("value")
