@@ -1,8 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # PYTHON_ARGCOMPLETE_OK
+"""
+>>> main("blondie_pp.pls")
+{'File1': 'Blondie/Atomic/01-Atomic.ogg', 'Title1': 'Blondie - Atomic', \
+'Length1': '230', 'File18': "Blondie/Atomic/18-I'm Gonna Love You Too.ogg", \
+'Title18': "Blondie - I'm Gonna Love You Too", 'Length18': '-1', \
+'NumberOfEntries': '18', 'Version': '2'}
+"""
 from typing import Any
-from numbers import Number
 import pyparsing as pp
 
 PLS_PAIRS = dict[str, Any]
@@ -30,4 +36,7 @@ def main(filename="blondie_pp.pls") -> PLS_PAIRS:
 
 
 if __name__ == "__main__":
+    import doctest
+
+    doctest.testmod()
     print(main())
