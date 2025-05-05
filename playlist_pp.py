@@ -9,7 +9,7 @@ def bnf() -> pp.core.ParserElement:
     ini_header = pp.Combine(pp.Literal("[") + pp.Regex(r"[^]]+") + pp.Literal("]"))
     value = pp.Regex(r".+")
     key = pp.Word(pp.alphas + pp.alphanums)
-    key_value = key + pp.Literal("=") + value
+    key_value = key + pp.Suppress("=") + value
     blank = pp.Regex(r"^$")
     comment = pp.Regex(r"#.*")
     line = ini_header | key_value | comment | blank
@@ -21,6 +21,6 @@ if __name__ == "__main__":
     with open("blondie_pp.pls", "r") as f:
         for line in f:
             res = bnf().parse_string(line[:-1])
-            if len(res) == 3 and res[1] == "=":
-                pairs[res[0]] = res[2]
+            if len(res) == 2:
+                pairs[res[0]] = res[1]
     print(pairs)
