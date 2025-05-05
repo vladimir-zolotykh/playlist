@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # PYTHON_ARGCOMPLETE_OK
+from numbers import Number
 import pyparsing as pp
 
 
@@ -16,7 +17,10 @@ def bnf() -> pp.core.ParserElement:
 
 
 if __name__ == "__main__":
+    pairs: dict[str, str | Number] = {}
     with open("blondie_pp.pls", "r") as f:
         for line in f:
             res = bnf().parse_string(line[:-1])
-            print(res)
+            if len(res) == 3 and res[1] == "=":
+                pairs[res[0]] = res[2]
+    print(pairs)
