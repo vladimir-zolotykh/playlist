@@ -22,9 +22,7 @@ def bnf() -> pp.core.ParserElement:
     key = pp.Word(pp.alphas + pp.alphanums + "_").set_results_name("key")
     value = pp.restOfLine.set_results_name("value")
     key_value = key + pp.Suppress("=") + value
-    blank = pp.Regex(r"^$")
-    comment = pp.Regex(r"#.*")
-    line = ini_header | key_value | comment | blank
+    line = ini_header | key_value | pp.pythonStyleComment | pp.Empty()
     return line
 
 
@@ -42,4 +40,3 @@ if __name__ == "__main__":
     import doctest
 
     doctest.testmod()
-    print(main())
