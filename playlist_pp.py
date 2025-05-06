@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # PYTHON_ARGCOMPLETE_OK
 """
->>> main("blondie_pp.pls")
+>>> parse_file("blondie_pp.pls")
 {'File1': 'Blondie/Atomic/01-Atomic.ogg', 'Title1': 'Blondie - Atomic', \
 'Length1': '230', 'File18': "Blondie/Atomic/18-I'm Gonna Love You Too.ogg", \
 'Title18': "Blondie - I'm Gonna Love You Too", 'Length18': '-1', \
@@ -26,7 +26,7 @@ def bnf() -> pp.core.ParserElement:
     return line
 
 
-def main(filename="blondie_pp.pls") -> PLS_PAIRS:
+def parse_file(filename="blondie_pp.pls") -> PLS_PAIRS:
     pairs: PLS_PAIRS = {}
     with open(filename, "r") as f:
         for line in f:
